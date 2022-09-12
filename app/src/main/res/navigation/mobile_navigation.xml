@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.iamyajat.messtracker.ui.history.DashboardFragment"
+        android:name="com.iamyajat.messtracker.ui.history.HistoryFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_history" />
 
