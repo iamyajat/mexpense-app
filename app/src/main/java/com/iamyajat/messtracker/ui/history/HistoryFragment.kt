@@ -1,17 +1,24 @@
 package com.iamyajat.messtracker.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.iamyajat.messtracker.adapter.MealAdapter
 import com.iamyajat.messtracker.databinding.FragmentHistoryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
+    private var firstTime = true
+    private lateinit var mealAdapter: MealAdapter
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,9 +35,29 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        historyViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        historyViewModel.getMeals()
+        historyViewModel.monthExpValue()
+
+        historyViewModel.monthExp.observe(viewLifecycleOwner) {
+            binding.monthExpenseAmount.text = it.toString()
+        }
+
+        historyViewModel.meals.observe(viewLifecycleOwner) { todayMeals ->
+            if(firstTime) {
+                mealAdapter = MealAdapter(todayMeals, true)
+                Log.d("MEALS_FRAG", todayMeals.toString())
+
+                binding.mealList.apply {
+                    layoutManager = LinearLayoutManager(context)
+//                    setHasFixedSize(true)
+                    adapter = mealAdapter
+                }
+                firstTime = false
+            } else {
+                Log.d("MEALS_FRAG_C", todayMeals.toString())
+                mealAdapter.dataSetChange(todayMeals)
+                mealAdapter.notifyDataSetChanged()
+            }
         }
         return root
     }

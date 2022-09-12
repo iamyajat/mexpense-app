@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.iamyajat.messtracker.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_meal"
+            app:destination="@id/navigation_meal"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
@@ -18,8 +23,8 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.iamyajat.messtracker.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_meal"
+        android:name="com.iamyajat.messtracker.ui.meal.MealFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_meal" />
 </navigation>

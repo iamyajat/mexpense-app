@@ -2,39 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingHorizontal="20dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingHorizontal="20dp">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/meal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Breakfast"
             android:layout_marginTop="10dp"
+            android:text="Breakfast"
             android:textColor="@color/text"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/meal_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="at 7:20pm"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/text"
-            android:fontFamily="@font/galanogrotesque_regular"/>
+            android:fontFamily="@font/galanogrotesque_regular"
+            android:text="at 7:20pm"
+            android:textColor="@color/text" />
     </LinearLayout>
 
 
     <TextView
+        android:id="@+id/meal_credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="74"
         android:layout_gravity="center"
+        android:text="74"
         android:textColor="@color/text"
         android:textSize="20sp" />
 

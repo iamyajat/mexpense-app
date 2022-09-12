@@ -1,4 +1,4 @@
-package com.iamyajat.messtracker.ui.home
+package com.iamyajat.messtracker.ui.meal
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,14 +6,40 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iamyajat.messtracker.model.Meal
 import com.iamyajat.messtracker.repository.MealRepository
-import com.iamyajat.messtracker.util.Constants.MAX_CREDITS
+import com.iamyajat.messtracker.util.Constants
 import com.iamyajat.messtracker.util.DateFunctions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: MealRepository) : ViewModel() {
+class MealViewModel @Inject constructor(private val repository: MealRepository) : ViewModel() {
+
+    private val _amount = MutableLiveData<Long>().apply {
+        value = 0
+    }
+    val amount: LiveData<Long> = _amount
+
+    fun changeAmount(amt: Long) {
+        _amount.postValue(amt)
+    }
+
+    fun addValue(mealName: String) {
+        viewModelScope.launch {
+            repository.insertMeal(
+                Meal(
+                    mealName = mealName,
+                    description = "",
+                    addedOn = Date(),
+                    amount = amount.value!!,
+                    rating = 0
+                )
+            )
+
+        }
+    }
+
 
     private val _todayExp = MutableLiveData<Long>().apply {
         value = 0L
@@ -48,7 +74,7 @@ class HomeViewModel @Inject constructor(private val repository: MealRepository) 
             if (exp == null) {
                 exp = 0
             }
-            val availBal = MAX_CREDITS - exp
+            val availBal = Constants.MAX_CREDITS - exp
             var perDay = availBal / DateFunctions.getRemainingDays()
             perDay -= if (todayExp.value == null) 0 else todayExp.value!!
             _todayBal.postValue(perDay)
@@ -73,24 +99,8 @@ class HomeViewModel @Inject constructor(private val repository: MealRepository) 
         }
     }
 
-    private val _meals = MutableLiveData<List<Meal>>().apply {
-        value = ArrayList()
-    }
-    val meals: LiveData<List<Meal>> = _meals
-
-    private fun getMeals() {
-        viewModelScope.launch {
-            _meals.postValue(
-                repository.getPeriodMeals(
-                    DateFunctions.getTodayStart(),
-                    DateFunctions.getTodayEnd()
-                )
-            )
-        }
-    }
 
     fun initVM() {
-        getMeals()
         todayExpValue()
         monthExpValue()
         todayBalValue()
