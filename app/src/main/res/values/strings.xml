@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mess Tracker</string>
+    <string name="app_name">Mexpense</string>
     <string name="title_home">Today</string>
     <string name="title_dashboard">History</string>
     <string name="title_notifications">Notifications</string>

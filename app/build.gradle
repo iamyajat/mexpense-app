@@ -13,8 +13,8 @@ android {
         applicationId "com.iamyajat.messtracker"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "alpha 1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

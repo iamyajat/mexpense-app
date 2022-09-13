@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iamyajat.messtracker.adapter.MealAdapter
 import com.iamyajat.messtracker.databinding.FragmentHistoryBinding
+import com.iamyajat.messtracker.util.MealListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,8 +36,7 @@ class HistoryFragment : Fragment() {
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        historyViewModel.getMeals()
-        historyViewModel.monthExpValue()
+        historyViewModel.initVM()
 
         historyViewModel.monthExp.observe(viewLifecycleOwner) {
             binding.monthExpenseAmount.text = it.toString()
@@ -44,7 +44,12 @@ class HistoryFragment : Fragment() {
 
         historyViewModel.meals.observe(viewLifecycleOwner) { todayMeals ->
             if(firstTime) {
-                mealAdapter = MealAdapter(todayMeals, true)
+                mealAdapter = MealAdapter(todayMeals, true, object : MealListener {
+                    override fun onDelete(mealId: Long) {
+                        historyViewModel.deleteMeal(mealId)
+                        historyViewModel.initVM()
+                    }
+                })
                 Log.d("MEALS_FRAG", todayMeals.toString())
 
                 binding.mealList.apply {

@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iamyajat.messtracker.R
 import com.iamyajat.messtracker.model.Meal
 import com.iamyajat.messtracker.util.DateFunctions.formatDate
+import com.iamyajat.messtracker.util.MealListener
 
 class MealAdapter(
     private var meals: List<Meal>,
-    var dateAndTime: Boolean = true
+    var dateAndTime: Boolean = true,
+    var mealListener: MealListener
 ) : RecyclerView.Adapter<MealAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,10 +35,14 @@ class MealAdapter(
             mealName.text = currentMeal.mealName
             mealTime.text = formatDate(currentMeal.addedOn, dateAndTime)
             mealCredits.text = currentMeal.amount.toString()
+            itemView.setOnLongClickListener {
+                mealListener.onDelete(currentMeal.id!!)
+                true
+            }
         }
     }
 
-    fun dataSetChange(newMeals : List<Meal>) {
+    fun dataSetChange(newMeals: List<Meal>) {
         meals = newMeals
     }
 

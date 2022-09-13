@@ -14,6 +14,7 @@ import com.iamyajat.messtracker.adapter.MealAdapter
 import com.iamyajat.messtracker.databinding.FragmentHomeBinding
 import com.iamyajat.messtracker.util.Constants.MAX_CREDITS
 import com.iamyajat.messtracker.util.DateFunctions.getGreeting
+import com.iamyajat.messtracker.util.MealListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +62,12 @@ class HomeFragment : Fragment() {
 
         homeViewModel.meals.observe(viewLifecycleOwner) { todayMeals ->
             if (firstTime) {
-                mealAdapter = MealAdapter(todayMeals, false)
+                mealAdapter = MealAdapter(todayMeals, false, object : MealListener {
+                    override fun onDelete(mealId: Long) {
+                        homeViewModel.deleteMeal(mealId)
+                        homeViewModel.initVM()
+                    }
+                })
                 Log.d("MEALS_FRAG_HOME", todayMeals.toString())
 
                 binding.mealList.apply {
