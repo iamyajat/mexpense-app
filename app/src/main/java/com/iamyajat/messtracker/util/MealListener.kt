@@ -1,5 +1,7 @@
 package com.iamyajat.messtracker.util
 
+import com.iamyajat.messtracker.model.Meal
+
 interface MealListener {
-    fun onDelete(mealId: Long)
+    fun onDelete(meal: Meal)
 }

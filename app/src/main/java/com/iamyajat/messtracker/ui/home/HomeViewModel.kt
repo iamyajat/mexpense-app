@@ -10,7 +10,9 @@ import com.iamyajat.messtracker.util.Constants.MAX_CREDITS
 import com.iamyajat.messtracker.util.DateFunctions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: MealRepository) : ViewModel() {
@@ -92,6 +94,22 @@ class HomeViewModel @Inject constructor(private val repository: MealRepository) 
     fun deleteMeal(id: Long) {
         viewModelScope.launch {
             repository.deleteMeal(id)
+        }
+    }
+
+
+    fun addValue(mealName: String, amount: Long, date: Date) {
+        viewModelScope.launch {
+            repository.insertMeal(
+                Meal(
+                    mealName = mealName,
+                    description = "",
+                    addedOn = date,
+                    amount = amount,
+                    rating = 0
+                )
+            )
+
         }
     }
 

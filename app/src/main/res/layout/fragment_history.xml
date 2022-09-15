@@ -23,13 +23,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/meal_list"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/month_expense_view"
             android:layout_marginTop="?actionBarSize"
-            tools:listitem="@layout/item_meal" />
+            android:layout_above="@+id/month_expense_view"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/meal_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                tools:listitem="@layout/item_meal" />
+
+            <TextView
+                android:id="@+id/no_meals_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:alpha="0.7"
+                android:gravity="center"
+                android:fontFamily="@font/galanogrotesque_regular"
+                android:text="No Meals" />
+
+        </FrameLayout>
 
 
         <LinearLayout

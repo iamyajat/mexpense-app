@@ -1,6 +1,5 @@
 package com.iamyajat.messtracker.util
 
-import android.text.Editable
 import com.iamyajat.messtracker.util.Constants.BREAKFAST
 import com.iamyajat.messtracker.util.Constants.DINNER
 import com.iamyajat.messtracker.util.Constants.LATE_DINNER
@@ -53,11 +52,15 @@ object DateFunctions {
         return Date(c.timeInMillis)
     }
 
-    fun formatDate(date: Date, dateAndTime: Boolean = true): String {
+    fun formatDateTime(date: Date, dateAndTime: Boolean = true): String {
         if (dateAndTime) {
             return SimpleDateFormat("dd MMM, hh:mm a", Locale.ENGLISH).format(date)
         }
         return SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(date)
+    }
+
+    fun formatDate(date: Date): String {
+        return SimpleDateFormat("dd/MM/yy", Locale.ENGLISH).format(date)
     }
 
     fun getRemainingDays(): Int {
@@ -83,7 +86,7 @@ object DateFunctions {
     }
 
     fun getMealType(): String {
-        when(getTimeOfDay()) {
+        when (getTimeOfDay()) {
             BREAKFAST -> return "Breakfast"
             LUNCH -> return "Lunch"
             SNACKS -> return "Snacks"
@@ -93,7 +96,7 @@ object DateFunctions {
     }
 
     fun getGreeting(): String {
-        when(getTimeOfDay()) {
+        when (getTimeOfDay()) {
             BREAKFAST -> return "Good morning"
             LUNCH -> return "Good afternoon"
             SNACKS -> return "Good evening"

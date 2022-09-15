@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.iamyajat.messtracker.R
 import com.iamyajat.messtracker.model.Meal
-import com.iamyajat.messtracker.util.DateFunctions.formatDate
+import com.iamyajat.messtracker.util.DateFunctions.formatDateTime
 import com.iamyajat.messtracker.util.MealListener
 
 class MealAdapter(
@@ -33,10 +33,10 @@ class MealAdapter(
         val currentMeal = meals[position]
         viewHolder.apply {
             mealName.text = currentMeal.mealName
-            mealTime.text = formatDate(currentMeal.addedOn, dateAndTime)
+            mealTime.text = formatDateTime(currentMeal.addedOn, dateAndTime)
             mealCredits.text = currentMeal.amount.toString()
             itemView.setOnLongClickListener {
-                mealListener.onDelete(currentMeal.id!!)
+                mealListener.onDelete(currentMeal)
                 true
             }
         }
