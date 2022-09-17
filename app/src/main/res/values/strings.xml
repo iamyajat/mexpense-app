@@ -6,4 +6,7 @@
     <string name="info">\u2022 Today\'s Balance is calculated using your remaining balance and remaining number of days\n\u2022 Long press on a meal to delete it</string>
     <string name="untracked_des">Forgot to enter some old meal\'s amount? Or are you moving from some other app?</string>
     <string name="untracked_credits">Untracked Credits</string>
+    <string name="notif_group">Reminders</string>
+    <string name="default_notification_channel_name">Reminders</string>
+    <string name="default_notification_channel_id">com.iamyajat.messtracker-Reminders</string>
 </resources>
