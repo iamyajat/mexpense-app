@@ -53,6 +53,11 @@ class HomeFragment : Fragment() {
                 .navigate(R.id.action_navigation_home_to_navigation_meal)
         }
 
+        binding.offDaysButton.setOnClickListener {
+            requireView().findNavController()
+                .navigate(R.id.action_navigation_home_to_navigation_settings)
+        }
+
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.open_info -> {

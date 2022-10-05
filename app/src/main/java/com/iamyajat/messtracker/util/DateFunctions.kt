@@ -70,13 +70,13 @@ object DateFunctions {
 
     fun getTimeOfDay(): Int {
         val c = Calendar.getInstance()
-        if (c[Calendar.HOUR_OF_DAY] in 5..12) {
+        if (c[Calendar.HOUR_OF_DAY] in 5..11) {
             return BREAKFAST
         }
-        if (c[Calendar.HOUR_OF_DAY] in 12..16) {
+        if (c[Calendar.HOUR_OF_DAY] in 11..15) {
             return LUNCH
         }
-        if (c[Calendar.HOUR_OF_DAY] in 16..18) {
+        if (c[Calendar.HOUR_OF_DAY] in 15..18) {
             return SNACKS
         }
         if (c[Calendar.HOUR_OF_DAY] in 18..21) {
@@ -103,5 +103,19 @@ object DateFunctions {
             DINNER -> return "Good evening"
         }
         return "Good night"
+    }
+
+    fun getCurrentMonth(): String {
+        return SimpleDateFormat("MMMM", Locale.ENGLISH).format(Date())
+    }
+
+    fun getMonthSize(): Int {
+        val c = Calendar.getInstance()
+        return c.getActualMaximum(Calendar.DAY_OF_MONTH)
+    }
+
+    fun getDateId(date: Int): Long {
+        val c = Calendar.getInstance()
+        return ((((date * 100) + c[Calendar.MONTH]) * 10000) + c[Calendar.YEAR]).toLong()
     }
 }

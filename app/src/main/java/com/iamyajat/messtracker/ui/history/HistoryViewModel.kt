@@ -49,6 +49,7 @@ class HistoryViewModel @Inject constructor(private val repository: MealRepositor
     fun deleteMeal(id: Long) {
         viewModelScope.launch {
             repository.deleteMeal(id)
+            initVM()
         }
     }
 

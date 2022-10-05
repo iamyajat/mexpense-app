@@ -94,6 +94,7 @@ class HomeViewModel @Inject constructor(private val repository: MealRepository) 
     fun deleteMeal(id: Long) {
         viewModelScope.launch {
             repository.deleteMeal(id)
+            initVM()
         }
     }
 
